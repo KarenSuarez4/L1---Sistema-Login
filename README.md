@@ -9,6 +9,6 @@
     - Datos almacenados con métodos de encriptación.</p> <br>
 
 <b><p>Integrantes: </p></b>
-<p> - Ronald Samir Molinares <br>
-    - Lunna Karina Sosa <br>
-    - Karen Juliana Peña</p>
+<p> - Ronald Samir Molinares Sanabria<br>
+    - Lunna Karina Sosa Espitia<br>
+    - Karen Juliana Peña Suarez</p>
