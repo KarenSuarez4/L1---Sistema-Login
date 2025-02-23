@@ -1,7 +1,10 @@
 import bcryptjs from "bcryptjs";
+import jsonwebtoken from "jsonwebtoken";
+import dotenv from "dotenv";
 
+dotenv.config();
 
-export const usuarios = [
+export const users = [
   {
     user: "a",
     email: "a@a.com",
@@ -16,15 +19,15 @@ async function login(req, res) {
   if (!user || !password) {
     return res.status(400).send({ status: "Error", message: "Missing camps" });
   }
-  const usuarioAResvisar = usuarios.find((usuario) => usuario.user === user);
-  if (!usuarioAResvisar) {
+  const userToReview = users.find((usuario) => usuario.user === user);
+  if (!userToReview) {
     return res
       .status(400)
       .send({ status: "Error", message: "Error during Log in" });
   }
   const loginCorrect = await bcryptjs.compare(
     password,
-    usuarioAResvisar.password
+    userToReview.password
   );
   console.log(loginCorrect);
   if (!loginCorrect) {
@@ -32,6 +35,14 @@ async function login(req, res) {
       .status(400)
       .send({ status: "Error", message: "Error during Log in" });
   }
+  const token = jsonwebtoken.sign(
+    {user: userToReview.user}, 
+    process.env.JWT_SECRET,
+    {expiresIn:procces.env.JWT_EXPIRATION});
+
+    const cookieOption={
+        
+    }
   res.send({ status: "ok", message: "Log in correct", redirect: "/admin" });
 }
 
@@ -42,8 +53,8 @@ async function register(req, res) {
   if (!user || !password || !email) {
     return res.status(400).send({ status: "Error", message: "Missing camps" });
   }
-  const usuarioAResvisar = usuarios.find((usuario) => usuario.user === user);
-  if (usuarioAResvisar) {
+  const userToReview = users.find((usuario) => usuario.user === user);
+  if (userToReview) {
     return res
       .status(400)
       .send({ status: "Error", message: "This user already exists" });
@@ -55,8 +66,8 @@ async function register(req, res) {
     email,
     password: hashPassword,
   };
-  usuarios.push(nuevoUsuario);
-  console.log(usuarios);
+  users.push(nuevoUsuario);
+  console.log(users);
   return res.status(201).send({
     status: "ok",
     message: `User ${nuevoUsuario.user} included`,
