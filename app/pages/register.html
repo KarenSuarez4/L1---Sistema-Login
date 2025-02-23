@@ -12,18 +12,42 @@
       <div class="form-container">
         <h1>Register</h1>
         <form id="register-form">
-          <label for="user" class="sr-only">Username</label>
+          <label for="first_name_person" class="sr-only">First_Name</label>
           <input
             type="text"
-            name="user"
-            id="user"
+            name="first_name_person"
+            id="first_name_person"
+            placeholder="Enter your first name"
+            required
+          />
+          <label for="last_name_person" class="sr-only">Last_Name</label>
+          <input
+            type="text"
+            name="last_name_person"
+            id="last_name_person"
+            placeholder="Enter your last name"
+            required
+          />
+          <label for="document_number_person" class="sr-only">Document_Number</label>
+          <input
+            type="text"
+            name="document_number_person"
+            id="document_number_person"
+            placeholder="Enter your document number"
+            required pattern="\d+" title="Only numbers are allowed" title="Solo números" maxlength="10"
+          />
+          <label for="user_name" class="sr-only">Username</label>
+          <input
+            type="text"
+            name="user_name"
+            id="user_name"
             placeholder="Enter your username"
           />
-          <label for="email" class="sr-only">Email</label>
+          <label for="email_user" class="sr-only">Email</label>
           <input
             type="email"
-            name="email"
-            id="email"
+            name="email_user"
+            id="email_user"
             placeholder="Enter your email"
           />
           <label for="password" class="sr-only">Password</label>
@@ -47,4 +71,4 @@
       </div>
     </main>
   </body>
-</html>
+</html> 
