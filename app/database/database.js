@@ -1,18 +1,20 @@
-import mysql2 from 'mysql2';
+import mysql2 from "mysql2";
+import dotenv from "dotenv";
+dotenv.config();
 
 const connectiondb = mysql2.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'login_node'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 connectiondb.connect((error) => {
   if (error) {
-    console.error('Error de conexión:', error);
+    console.error("Connection error:", error);
     return;
   }
-  console.log('¡Conectado a la base de datos!');
+  console.log("Connected to the database!");
 });
 
-export default connectiondb; 
+export default connectiondb;

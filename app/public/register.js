@@ -1,6 +1,6 @@
 const errorMessage = document.getElementsByClassName("error")[0];
 
-document.getElementById("register-form").addEventListener("submit", async (e) => {
+document.getElementById("register-form").addEventListener("submit",async(e)=>{
   e.preventDefault();
 
   const res = await fetch("http://localhost:3000/api/register", {
@@ -17,7 +17,7 @@ document.getElementById("register-form").addEventListener("submit", async (e) =>
       password: e.target.children.password.value
     })
   });
-  if (!res.ok) return errorMessage.classList.toggle("escondido", false);
+  if (!res.ok) return errorMessage.classList.toggle("hidden", false);
   const resJson = await res.json();
   if (resJson.redirect) {
     window.location.href = resJson.redirect;
