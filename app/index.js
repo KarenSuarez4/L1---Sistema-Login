@@ -5,6 +5,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import { methods as authentication } from "./controllers/authentication.controller.js";
 import { methods as authorization } from "./middlewares/authorization.js";
 import cookieParser from "cookie-parser";
+import connection from './database/database.js';
 
 // //Server
 const app = express();
@@ -31,5 +32,5 @@ app.get("/admin", authorization.onlyAdmin, (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "employee", "employee.html"))
 );
 
-app.post("/api/register", authentication.register);
+app.post("/api/register", authentication.saveRegister);
 app.post("/api/login", authentication.login);
