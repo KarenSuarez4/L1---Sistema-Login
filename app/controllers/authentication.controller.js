@@ -8,43 +8,105 @@ async function login(req, res) {
   const password = req.body.password;
 
   if (!user || !password) {
-    return res.status(400).send({ status: "Error", message: "Campos faltantes" });
+    return res.status(400).send({ status: "Error", message: "Missing fields" });
   }
 
-  const query = "SELECT * FROM users WHERE user_name = ?";
-  connectiondb.query(query, [user], async (error, result) => {
-    if (error) {
-      console.error("Error en la consulta SQL:", error);
-      return res.status(500).send({ status: "Error", message: "Error en el servidor" });
+  try {
+    const userToReview = await getUserByUsername(user);
+    if (!userToReview) {
+      return res.status(400).send({ status: "Error", message: "Incorrect username or password" });
     }
 
-    if (result.length === 0) {
-      return res.status(400).send({ status: "Error", message: "Usuario o contraseña incorrectos" });
+    if (userToReview.count > 5) {
+      await deactivateUser(user);
+      return res.status(400).send({ status: "Error", message: "User blocked due to multiple failed attempts" });
     }
 
-    const userToReview = result[0];
+    if (!userToReview.is_actived) {
+      return res.status(400).send({ status: "Error", message: "Inactive user" });
+    }
+
     const loginCorrected = await bcryptjs.compare(password, userToReview.password_hash);
-
     if (!loginCorrected) {
-      return res.status(400).send({ status: "Error", message: "Usuario o contraseña incorrectos" });
+      await incrementFailedAttempts(user);
+      return res.status(400).send({ status: "Error", message: "Incorrect username or password" });
     }
 
-    const token = jsonwebtoken.sign(
-      { user: userToReview.user_name },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRATION }
-    );
+    const token = generateToken(userToReview.user_name);
+    setTokenCookie(res, token);
+    await resetFailedAttempts(user);
 
-    const cookieOption = {
-      expires: new Date(
-        Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-      ),
-      path: "/",
-    };
-    
-    res.cookie("jwt", token, cookieOption);
-    res.send({ status: "ok", message: "Usuario loggeado", redirect: "/admin" });
+    res.send({ status: "ok", message: "User logged in", redirect: "/admin" });
+  } catch (error) {
+    console.error("Error during login process:", error);
+    res.status(500).send({ status: "Error", message: "Server error" });
+  }
+}
+
+function getUserByUsername(user) {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT * FROM users WHERE user_name = ?";
+    connectiondb.query(query, [user], (error, result) => {
+      if (error) {
+        return reject(error);
+      }
+      resolve(result[0]);
+    });
   });
+}
+
+function deactivateUser(user) {
+  return new Promise((resolve, reject) => {
+    const query = "UPDATE users SET is_actived = false WHERE user_name = ?";
+    connectiondb.query(query, [user], (error) => {
+      if (error) {
+        return reject(error);
+      }
+      resolve();
+    });
+  });
+}
+
+function incrementFailedAttempts(user) {
+  return new Promise((resolve, reject) => {
+    const query = "UPDATE users SET count = count + 1 WHERE user_name = ?";
+    connectiondb.query(query, [user], (error) => {
+      if (error) {
+        return reject(error);
+      }
+      resolve();
+    });
+  });
+}
+
+function resetFailedAttempts(user) {
+  return new Promise((resolve, reject) => {
+    const query = "UPDATE users SET count = 0 WHERE user_name = ?";
+    connectiondb.query(query, [user], (error) => {
+      if (error) {
+        return reject(error);
+      }
+      resolve();
+    });
+  });
+}
+
+function generateToken(user) {
+  return jsonwebtoken.sign(
+    { user },
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRATION }
+  );
+}
+
+function setTokenCookie(res, token) {
+  const cookieOption = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+    ),
+    path: "/",
+  };
+  res.cookie("jwt", token, cookieOption);
 }
 
 async function saveRegister(req, res) {
