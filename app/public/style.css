@@ -107,7 +107,7 @@ button:hover .arrow:before {
     font-weight: bold;
 }
 
-.escondido {
+.hidden {
     display: none;
 }
 

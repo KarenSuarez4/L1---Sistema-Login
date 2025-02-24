@@ -14,7 +14,7 @@ document.getElementById("register-form").addEventListener("submit",async(e)=>{
       password: e.target.children.password.value
     })
   });
-  if(!res.ok) return errorMessage.classList.toggle("escondido",false);
+  if(!res.ok) return errorMessage.classList.toggle("hidden",false);
   const resJson = await res.json();
   if(resJson.redirect){
     window.location.href = resJson.redirect;

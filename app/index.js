@@ -27,6 +27,9 @@ app.get("/register", authorization.onlyPublic, (req, res) =>
 app.get("/admin", authorization.onlyAdmin, (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "admin", "admin.html"))
 );
+app.get("/admin", authorization.onlyAdmin, (req, res) =>
+  res.sendFile(path.join(__dirname, "pages", "employee", "employee.html"))
+);
 
 app.post("/api/register", authentication.register);
 app.post("/api/login", authentication.login);
