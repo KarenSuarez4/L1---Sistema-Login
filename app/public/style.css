@@ -117,3 +117,39 @@ button:hover .arrow:before {
     width: 1px;
     height: 1px;
 }
+
+/*¨Table*/
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    border: 1px solid #ddddddab;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #645bff;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #635bff53;
+} 
