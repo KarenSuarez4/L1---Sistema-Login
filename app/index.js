@@ -36,5 +36,6 @@ app.get("/admin", authorization.onlyAdmin, (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "employee", "employee.html"))
 );
 
+app.post("/api/recoverPassword", emailHelper.sendEmail);
 app.post("/api/register", authentication.saveRegister);
 app.post("/api/login", authentication.login);
