@@ -2,21 +2,24 @@ const errorMessage = document.getElementsByClassName("error")[0];
 
 document.getElementById("register-form").addEventListener("submit",async(e)=>{
   e.preventDefault();
-  console.log(e.target.children.user.value)
-  const res = await fetch("http://localhost:3000/api/register",{
-    method:"POST",
-    headers:{
-      "Content-Type" : "application/json"
+
+  const res = await fetch("http://localhost:3000/api/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      user: e.target.children.user.value,
-      email: e.target.children.email.value,
+      first_name_person: e.target.children.first_name_person.value,
+      last_name_person: e.target.children.last_name_person.value,
+      document_number_person: e.target.children.document_number_person.value,
+      user_name: e.target.children.user_name.value,
+      email_user: e.target.children.email_user.value,
       password: e.target.children.password.value
     })
   });
-  if(!res.ok) return errorMessage.classList.toggle("escondido",false);
+  if (!res.ok) return errorMessage.classList.toggle("hidden", false);
   const resJson = await res.json();
-  if(resJson.redirect){
+  if (resJson.redirect) {
     window.location.href = resJson.redirect;
   }
 })
