@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { methods as authentication } from "./controllers/authentication.controller.js";
+import { emailHelper } from "./controllers/recoverPassword.controller.js";
 import { methods as authorization } from "./middlewares/authorization.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -35,6 +36,9 @@ app.get("/superAdmin", authorization.onlySuperAdmin, (req, res) =>
 );
 app.get("/admin", authorization.onlyAdmin, (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "admin", "admin.html"))
+);
+app.get("/recoverPassword", (req, res) =>
+  res.sendFile(path.join(__dirname, "pages", "recoverPassword.html"))
 );
 app.get("/employee", authorization.onlyEmployee, (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "employee", "employee.html"))
