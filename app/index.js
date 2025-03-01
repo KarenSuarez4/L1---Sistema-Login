@@ -45,6 +45,11 @@ app.get("/recoverPassword", (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "recoverPassword.html"))
 );
 
+app.get("/changePassword", (req, res) =>
+  res.sendFile(path.join(__dirname, "pages", "changePassword.html"))
+);
+
 app.post("/api/register", authentication.saveRegister);
 app.post("/api/login", authentication.login);
 app.post("/api/recoverPassword", emailHelper.sendEmail);
+app.post("/api/changePassword", emailHelper.changePassword); 
