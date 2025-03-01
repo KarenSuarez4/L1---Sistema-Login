@@ -31,6 +31,15 @@ async function onlyPublic(req, res, next) {
   return res.redirect("/");
 }
 
+async function checkRole(req, res) {
+  const login = await reviewCookie(req);
+  const { role } = req.body;
+  if (login && login.roles.includes(role)) {
+    return res.json({ hasRole: true });
+  }
+  return res.json({ hasRole: false });
+}
+
 async function reviewCookie(req) {
   try {
     const cookieJWT = req.headers.cookie
@@ -76,4 +85,5 @@ export const methods = {
   onlyEmployee,
   onlySuperAdmin,
   onlyPublic,
+  checkRole,
 };

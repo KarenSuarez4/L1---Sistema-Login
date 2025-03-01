@@ -22,6 +22,12 @@ app.get("/api/users", (req, res) => {
         FROM users u
         LEFT JOIN user_role ur ON u.id_user = ur.id_user
         LEFT JOIN role r ON ur.id_role = r.id_role
+        WHERE u.id_user NOT IN (
+            SELECT ur.id_user 
+            FROM user_role ur 
+            JOIN role r ON ur.id_role = r.id_role 
+            WHERE r.name_role_user = 'SuperAdmin'
+        )
         GROUP BY u.id_user
     `,
     (error, results) => {
@@ -31,39 +37,6 @@ app.get("/api/users", (req, res) => {
         return;
       }
 
-      results.forEach((row) => {
-        if (!row.roles) {
-          row.roles = "";
-        }
-      });
-
-      res.json(results);
-    }
-  );
-});
-
-app.get("/api/users", (req, res) => {
-  connectiondb.query(
-    `
-        SELECT 
-            u.id_user, 
-            u.user_name, 
-            u.document_number_person, 
-            u.email_user, 
-            CONCAT(u.first_name_person, ' ', u.last_name_person) AS full_name, 
-            IF(u.is_actived = 1, 'Active', 'Inactive') AS user_status,
-            GROUP_CONCAT(r.name_role_user) AS roles
-        FROM users u
-        LEFT JOIN user_role ur ON u.id_user = ur.id_user
-        LEFT JOIN role r ON ur.id_role = r.id_role
-        GROUP BY u.id_user
-    `,
-    (error, results) => {
-      if (error) {
-        console.error("Database query error:", error);
-        res.status(500).json({ error: "Database query error" });
-        return;
-      }
       results.forEach((row) => {
         if (!row.roles) {
           row.roles = "";

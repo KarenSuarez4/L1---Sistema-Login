@@ -40,10 +40,15 @@ app.get("/admin", authorization.onlyAdmin, (req, res) =>
 app.get("/employee", authorization.onlyEmployee, (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "employee", "employee.html"))
 );
-
 app.get("/recoverPassword", (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "recoverPassword.html"))
 );
+app.get("/accessDenied", (req, res) =>
+  res.sendFile(path.join(__dirname, "pages", "accessDenied.html"))
+);
+
+//New Route to check roles
+app.post("/api/checkRole", authorization.checkRole);
 
 app.post("/api/register", authentication.saveRegister);
 app.post("/api/login", authentication.login);

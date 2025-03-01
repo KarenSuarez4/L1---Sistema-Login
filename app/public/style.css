@@ -1,7 +1,13 @@
+.poppins-light {
+    font-family: "Poppins", serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
 body {
     background-color: #171717;
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,6 +65,7 @@ button .arrow-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 10px; 
 }
 
 button .arrow {
@@ -96,10 +103,23 @@ button:hover .arrow:before {
     right: 0;
 }
 
+.logoutAdmin-button:hover{
+    background-color: #fff; 
+    color: var(--hover-color);
+}
+.logoutAdmin-button:hover .arrow {
+    background: var(--hover-color); 
+}
+
+.logoutAdmin-button:hover .arrow:before {
+    border-color: var(--hover-color); 
+}
+
 .container-button {
     display: flex;
     justify-content: center;
 }
+
 
 .error {
     color: rgba(255, 0, 0, 0.762);
@@ -133,9 +153,9 @@ table {
     margin-top: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border-radius: 0px 6px 0px 0px;;
+    border-radius: 10px; /* Añadido */
+    overflow: hidden; /* Añadido */
 }
-
 
 th {
     background-color: #635bff9c;
@@ -145,14 +165,92 @@ th {
     font-weight: bold;
 }
 
-
 td {
     border: 1px solid #444;
     padding: 15px;
 }
-    
 
-.check {
-    color: #ffb400;
-    font-size: 20px;
-}
+/* From Uiverse.io by zanina-yassine */ 
+/* Remove this container when use*/
+.component-title {
+    width: 100%;
+    position: absolute;
+    z-index: 999;
+    top: 30px;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #888;
+    text-align: center;
+  }
+  
+  .tab-container {
+    position: relative;
+  
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  
+    padding: 2px;
+  
+    background-color: #dadadb;
+    border-radius: 9px;
+  }
+  
+  .indicator {
+    content: "";
+    width: 130px;
+    height: 28px;
+    background: #ffffff;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: 9;
+    border: 0.5px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 7px;
+    transition: all 0.2s ease-out;
+  }
+  
+  .tab {
+    width: 130px;
+    height: 28px;
+    position: absolute;
+    z-index: 99;
+    outline: none;
+    opacity: 0;
+  }
+  
+  .tab_label {
+    width: 130px;
+    height: 28px;
+  
+    position: relative;
+    z-index: 999;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border: 0;
+  
+    font-size: 0.75rem;
+    opacity: 0.6;
+  
+    cursor: pointer;
+  }
+  
+  .tab--1:checked ~ .indicator {
+    left: 2px;
+  }
+  
+  .tab--2:checked ~ .indicator {
+    left: calc(130px + 2px);
+  }
+  
+  .tab--3:checked ~ .indicator {
+    left: calc(130px * 2 + 2px);
+  }
+  
