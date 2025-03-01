@@ -117,3 +117,42 @@ button:hover .arrow:before {
     width: 1px;
     height: 1px;
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #dbd2e9;
+    color: rgb(0, 0, 0);
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 0px 6px 0px 0px;;
+}
+
+
+th {
+    background-color: #635bff9c;
+    color: white;
+    border: 1px solid #444;
+    padding: 15px;
+    font-weight: bold;
+}
+
+
+td {
+    border: 1px solid #444;
+    padding: 15px;
+}
+    
+
+.check {
+    color: #ffb400;
+    font-size: 20px;
+}
