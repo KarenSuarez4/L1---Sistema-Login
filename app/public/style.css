@@ -118,7 +118,6 @@ button:hover .arrow:before {
     height: 1px;
 }
 
-/*¨Table*/
 .header {
     display: flex;
     justify-content: space-between;
@@ -129,27 +128,31 @@ button:hover .arrow:before {
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: white;
+    background-color: #dbd2e9;
+    color: rgb(0, 0, 0);
     margin-top: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 0px 6px 0px 0px;;
 }
 
-th, td {
-    border: 1px solid #ddddddab;
-    padding: 12px;
-    text-align: left;
-}
 
 th {
-    background-color: #645bff;
+    background-color: #635bff9c;
     color: white;
+    border: 1px solid #444;
+    padding: 15px;
     font-weight: bold;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
 
-tr:hover {
-    background-color: #635bff53;
-} 
+td {
+    border: 1px solid #444;
+    padding: 15px;
+}
+    
+
+.check {
+    color: #ffb400;
+    font-size: 20px;
+}

@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import connectiondb from "./database/database.js";
 
-
 const app = express();
 const port = process.env.API_PORT || 3001; // Usar un puerto diferente para la API
 
