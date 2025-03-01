@@ -3,17 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Super Admin</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>SuperAdmin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
     <script src="superAdmin.js" defer></script>
   </head>
   <body>
     <main>
+      <div class="menu">
+        <div class="tab-container">
+          <input type="radio" name="tab" id="tab1" class="tab tab--1" />
+          <label
+            class="tab_label"
+            for="tab1"
+            onclick="navigateToRolePage('Admin')"
+            >Admin</label
+          >
+
+          <input type="radio" name="tab" id="tab2" class="tab tab--2" />
+          <label
+            class="tab_label"
+            for="tab2"
+            onclick="navigateToRolePage('Employee')"
+            >Employee</label
+          >
+
+          <input type="radio" name="tab" id="tab3" class="tab tab--3" />
+          <label
+            class="tab_label"
+            for="tab3"
+            onclick="navigateToRolePage('SuperAdmin')"
+            >SuperAdmin</label
+          >
+
+          <div class="indicator"></div>
+        </div>
+      </div>
       <div class="container">
         <div class="header">
-          <h1 style="color: #fff; font-size: 4em">¡Hello Super Admin!</h1>
+          <h1
+            style="
+              color: #fff;
+              font-size: 4em;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            "
+          >
+            ¡Hello Super Admin!
+          </h1>
           <div class="container-button">
-            <button type="submit">
+            <button type="submit" class="logoutAdmin-button">
               Log Out
               <div class="arrow-wrapper">
                 <div class="arrow"></div>
@@ -22,16 +65,7 @@
           </div>
         </div>
       </div>
-      <!-- <div class="role-selector">
-        <label for="roleSelector">Select Role:</label>
-        <select id="roleSelector">
-          <option value="Admin">Admin</option>
-          <option value="Employee">Employee</option>
-          <option value="SuperAdmin">SuperAdmin</option>
-        </select>
-        <button onclick="setActiveRole()">Set Active Role</button>
-      </div> -->
-      <table>
+      <table class="poppins-light">
         <thead>
           <tr>
             <th>ID User</th>
@@ -45,7 +79,7 @@
           </tr>
         </thead>
         <tbody>
-          <!-- The rows will be dynamically inserted here by JavaScript -->
+          <!-- The rows will be  inserted here by JavaScript -->
         </tbody>
       </table>
     </main>
