@@ -13,8 +13,8 @@ body {
     align-items: center;
     min-height: 100svh;
     font-size: larger;
-    padding-top: 70px; 
-    
+    padding-top: 70px;
+
 }
 
 .h1-centered {
@@ -74,7 +74,7 @@ button .arrow-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 10px; 
+    margin-left: 10px;
 }
 
 button .arrow {
@@ -112,16 +112,17 @@ button:hover .arrow:before {
     right: 0;
 }
 
-.logout-button:hover{
-    background-color: #fff; 
+.logout-button:hover {
+    background-color: #fff;
     color: var(--hover-color);
 }
+
 .logout-button:hover .arrow {
-    background: var(--hover-color); 
+    background: var(--hover-color);
 }
 
 .logout-button:hover .arrow:before {
-    border-color: var(--hover-color); 
+    border-color: var(--hover-color);
 }
 
 .container-button {
@@ -168,8 +169,8 @@ table {
     margin-top: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border-radius: 10px; 
-    overflow: hidden; 
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 th {
@@ -231,7 +232,7 @@ td {
     align-items: center;
     justify-content: center;
     border: 0;
-    font-size: 1.2rem; 
+    font-size: 1.2rem;
     opacity: 0.6;
     cursor: pointer;
     transition: color 0.2s ease-in-out;
@@ -239,19 +240,21 @@ td {
 
 .tab_label:hover {
     color: #645bff;
-    font-weight: bold; 
-    background-color: #ffffff; 
+    font-weight: bold;
+    background-color: #ffffff;
 }
 
-.tab--1:checked ~ .indicator {
+.tab--1:checked~.indicator {
+
     left: 2px;
 }
 
-.tab--2:checked ~ .indicator {
+.tab--2:checked~.indicator {
+
     left: calc(300px + 2px);
 }
 
-.tab--3:checked ~ .indicator {
+.tab--3:checked~.indicator {
     left: calc(300px * 2 + 2px);
 }
 
@@ -265,13 +268,227 @@ td {
     z-index: 1000;
     display: flex;
     justify-content: center;
+    padding: 10px 0;
 }
 
 .svg-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0; 
+    margin: 20px 0;
     width: 100%;
     height: 100%;
+}
+
+@media screen and (max-width:1350px) {
+    .containerP {
+        position: static;
+        margin: 0 auto;
+        margin-top: 5%;
+        text-align: center;
+    }
+
+    .logout-button {
+        font-size: medium;
+        padding: 12px 30px;
+        max-width: 200px;
+    }
+}
+
+/* Media query para pantallas medianas */
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 2em;
+    }
+
+    .sr-only {
+        font-size: medium;
+    }
+
+    .h1-centered {
+        font-size: 3em;
+    }
+
+
+    .menu {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .tab-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tab_label {
+        width: 80%;
+        margin-bottom: 10px;
+    }
+
+    .indicator {
+        width: 80%;
+        left: 10%;
+    }
+
+    .tab--1:checked~.indicator {
+        left: 10%;
+    }
+
+    .tab--2:checked~.indicator {
+        left: 10%;
+        top: calc(40px + 10px);
+    }
+
+    .tab--3:checked~.indicator {
+        left: 10%;
+        top: calc(80px + 20px);
+    }
+
+
+    .form-container {
+        width: 90%;
+        max-width: 400px;
+        padding: 20px;
+    }
+
+    input {
+        padding: 12px;
+        font-size: smaller;
+    }
+
+    .container-button {
+        margin-top: 20px;
+        max-width: 80%;
+        margin: 0 auto;
+    }
+
+    .account-text,
+    .recover-link {
+        font-size: medium;
+    }
+
+    button {
+        font-size: medium;
+        padding: 12px 30px;
+    }
+
+    .containerP {
+        position: static;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .logout-button {
+        font-size: medium;
+        padding: 12px 30px;
+        max-width: 200px;
+    }
+}
+
+/* Media query para pantallas pequeñas */
+@media screen and (max-width: 480px) {
+    .title {
+        font-size: 1.5em;
+    }
+
+    .sr-only {
+        font-size: smaller;
+    }
+
+    .h1-centered {
+        font-size: 2.5em;
+    }
+
+    .form-container {
+        width: 95%;
+        max-width: 350px;
+        padding: 15px;
+    }
+
+    input {
+        padding: 10px;
+        font-size: small;
+    }
+
+    .container-button {
+        margin-top: 15px;
+    }
+
+    .account-text,
+    .recover-link {
+        font-size: small;
+    }
+
+    button {
+        font-size: small;
+        padding: 10px 25px;
+    }
+
+    .containerP {
+        position: static;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .logout-button {
+        font-size: smaller;
+        padding: 10px 25px;
+        max-width: 150px;
+    }
+}
+
+/* Media query para pantallas muy pequeñas */
+@media screen and (max-width: 380px) {
+    .title {
+        font-size: 1em;
+    }
+
+    .sr-only {
+        font-size: smaller;
+    }
+
+    .h1-centered {
+        font-size: 2em;
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 300px;
+        padding: 10px;
+    }
+
+    input {
+        padding: 8px;
+        font-size: small;
+    }
+
+    .container-button {
+        margin-top: 10px;
+    }
+
+    .account-text {
+        font-size: small;
+        margin-top: 3px;
+    }
+
+    .recover-link {
+        font-size: small;
+    }
+
+    button {
+        font-size: small;
+        padding: 8px 20px;
+    }
+
+    .containerP {
+        position: static;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .logout-button {
+        font-size: small;
+        padding: 8px 20px;
+        max-width: 130px;
+    }
 }
