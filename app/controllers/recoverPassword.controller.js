@@ -8,25 +8,27 @@ async function sendEmail(req,res) {
       const isExist = await getUserByEmail(email);
       if (!isExist) {
         return res.status(404).send("Error, user doesn't exist.");
+      } else {
+        const resetLink = "http://localhost:3000/changePassword";
+        const message = `
+        <p>Hola,</p>
+        <p>Recibimos una solicitud para restablecer tu contraseña en <strong>APP-Login</strong>.</p>
+        <p>Para continuar, haz clic en el siguiente enlace:</p><br>
+        <p style="text-align: center;">
+          <a href="${resetLink}" 
+            style="display: inline-block; padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">
+            Restablecer contraseña
+          </a><br>
+        </p>
+        <p>Si no solicitaste este cambio, ignora este mensaje.</p>
+        <br>
+        <p>Atentamente,</p>
+        <p><strong>El equipo de soporte de APP-Login</strong></p>
+      `;
+        let info = await sendTwoEmail(email, "Recover password APP-Login", message);
+        res.status(200).send(`Email sent: ${info.message}`);
       }
-      const resetLink = "http://localhost:3000/changePassword";
-      const message = `
-      <p>Hola,</p>
-      <p>Recibimos una solicitud para restablecer tu contraseña en <strong>APP-Login</strong>.</p>
-      <p>Para continuar, haz clic en el siguiente enlace:</p><br>
-      <p style="text-align: center;">
-        <a href="${resetLink}" 
-          style="display: inline-block; padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">
-          Restablecer contraseña
-        </a><br>
-      </p>
-      <p>Si no solicitaste este cambio, ignora este mensaje.</p>
-      <br>
-      <p>Atentamente,</p>
-      <p><strong>El equipo de soporte de APP-Login</strong></p>
-    `;
-      let info = await sendTwoEmail(email, "Recover password APP-Login", message);
-      res.status(200).send(`Email sent: ${info.message}`);
+      
   } catch (error) {
       console.error(error);
       res.status(500).send("Error sending email");
@@ -65,14 +67,20 @@ async function sendTwoEmail(to, subject, htmlContent) {
 function getUserByEmail(email) {
   return new Promise((resolve, reject) => {
     const query = "SELECT password_hash FROM users WHERE LOWER(email_user) = LOWER(?)";
-    connectiondb.query(query, [email], (error, result) => {
+    connectiondb.query(query, [email], (error, results) => {
       if (error) {
-        return reject(false);
+        reject(`Error al buscar usuario por email: ${error.message}`);
+      } else {
+        if (results.length > 0) {
+          resolve(true);
+        } else {
+          resolve(null);
+        }
       }
-      resolve(true);
     });
   });
 }
+
 
 async function changePassword(req, res) {
   try {
