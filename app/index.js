@@ -25,6 +25,7 @@ app.use(cookieParser());
 app.use(cors());
 
 // Routes
+
 app.get("/", authorization.onlyPublic, (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "login.html"))
 );
@@ -40,10 +41,15 @@ app.get("/admin", authorization.onlyAdmin, (req, res) =>
 app.get("/employee", authorization.onlyEmployee, (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "employee", "employee.html"))
 );
-
 app.get("/recoverPassword", (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "recoverPassword.html"))
 );
+app.get("/accessDenied", (req, res) =>
+  res.sendFile(path.join(__dirname, "pages", "accessDenied.html"))
+);
+
+//New Route to check roles
+app.post("/api/checkRole", authorization.checkRole);
 
 app.get("/changePassword", (req, res) =>
   res.sendFile(path.join(__dirname, "pages", "changePassword.html"))
@@ -52,4 +58,4 @@ app.get("/changePassword", (req, res) =>
 app.post("/api/register", authentication.saveRegister);
 app.post("/api/login", authentication.login);
 app.post("/api/recoverPassword", emailHelper.sendEmail);
-app.post("/api/changePassword", emailHelper.changePassword); 
+app.post("/api/changePassword", emailHelper.changePassword);
