@@ -4,8 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Employee</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="admin.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/admin.js" defer></script>
   </head>
   <body>
     <main>
@@ -18,14 +24,8 @@
             onclick="navigateToRolePage('Admin')"
             >Admin</label
           >
-
-          <input type="radio" name="tab" id="tab2" class="tab tab--2" />
-          <label
-            class="tab_label"
-            for="tab2"
-            onclick="navigateToRolePage('Employee')"
-            >Employee</label
-          >
+          <input type="radio" name="tab" id="tab2" class="tab tab--2" checked />
+          <label class="tab_label" for="tab2">Employee</label>
 
           <input type="radio" name="tab" id="tab3" class="tab tab--3" />
           <label
@@ -34,13 +34,23 @@
             onclick="navigateToRolePage('SuperAdmin')"
             >SuperAdmin</label
           >
-
           <div class="indicator"></div>
         </div>
       </div>
-      <h1 style="color: #fff; font-size: 4em">¡Hello Employee!</h1>
-      <div class="container-button">
-        <button type="submit" id="logout-button">
+      <h1
+        style="
+          color: #fff;
+          font-size: 4em;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        "
+      >
+        ¡Hello Employee!
+      </h1>
+            <div class="svg-container">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="100" height="100"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#645bff" d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zm80 256l64 0c44.2 0 80 35.8 80 80c0 8.8-7.2 16-16 16L80 384c-8.8 0-16-7.2-16-16c0-44.2 35.8-80 80-80zm-32-96a64 64 0 1 1 128 0 64 64 0 1 1 -128 0zm256-32l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>      </div>
+     </div>
+      <div class="containerP">
+        <button type="submit" class="logout-button">
           Log Out
           <div class="arrow-wrapper">
             <div class="arrow"></div>
