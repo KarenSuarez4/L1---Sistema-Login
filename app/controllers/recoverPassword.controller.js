@@ -7,9 +7,9 @@ async function sendEmail(req, res) {
   try {
     const isExist = await getUserByEmail(email);
     if (!isExist) {
-      return res.status(404).send("Error, user doesn't exist.");
-    }
-    const resetLink = "http://localhost:3000/changePassword";
+      return res.status(404).send({ status: "Error", message: "Incorrect username or password" });
+    } else {
+      const resetLink = "http://localhost:3000/changePassword";
     const message = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
         <h1 style="text-align: center; color: #645bff;  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 42px; font-weight: bold; margin-bottom: 20px;">Recuperación de Contraseña</h1>
@@ -28,7 +28,9 @@ async function sendEmail(req, res) {
       </div>
     `;
     let info = await sendTwoEmail(email, "Recover password APP-Login", message);
-    res.status(200).send(`Email sent: ${info.message}`);
+    res.status(200).send({ status: "Success", message: "Recover password" })
+    }
+    
   } catch (error) {
     console.error(error);
     res.status(500).send("Error sending email");
@@ -71,7 +73,7 @@ function getUserByEmail(email) {
       if (error) {
         reject(`Error al buscar usuario por email: ${error.message}`);
       } else {
-        if (results.length > 0) {
+        if (result.length > 0) { 
           resolve(true);
         } else {
           resolve(null);
@@ -82,20 +84,26 @@ function getUserByEmail(email) {
 }
 
 
+
 async function changePassword(req, res) {
   try {
     const email = req.body.email;
     const password = req.body.password;
+    const isExist = await getUserByEmail(email);
 
-    if (typeof password !== "string" || !password.trim()) {
-      return res.status(400).json({ error: "Invalid password format" });
+    if (!isExist) {
+      return res.status(404).send({ status: "Error", message: "Incorrect username" });
+    } else if (typeof password !== "string" || !password.trim()) {
+      return res.status(400).send({ status: "Error", message: "Invalid password" });
+    } else {
+      const salt = await bcryptjs.genSalt(10);
+      const hashedPassword = await bcryptjs.hash(password, salt);
+      await updateUserPassword(email, hashedPassword);
+      res.status(200).send({ status: "Success", message: "Password changed successfully" });
+      console.log(password);
     }
 
-    const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcryptjs.hash(password, salt);
-    await updateUserPassword(email, hashedPassword);
-    res.status(200).send("Password changed successfully");
-    console.log(password);
+    
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
