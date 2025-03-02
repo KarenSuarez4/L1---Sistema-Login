@@ -11,10 +11,34 @@ document.getElementById("recoverPassword-form").addEventListener("submit",async(
     body: JSON.stringify({
       email,
     }),
-  });
-  if(!res.ok) return errorMessage.classList.toggle("escondido",false);
-  const resJson = await res.json();
-  if(resJson.redirect){
+});
+
+
+const errorMessage = document.querySelector(".error");
+const successMessage = document.querySelector(".success");
+
+errorMessage.classList.add("hidden");
+errorMessage.style.display = "none";
+successMessage.classList.add("hidden");
+successMessage.style.display = "none";
+
+if (!res.ok) {
+  errorMessage.classList.remove("hidden"); 
+  errorMessage.style.display = "block";
+  return;
+}
+
+errorMessage.classList.add("hidden");
+errorMessage.style.display = "none";
+
+const resJson = await res.json();
+successMessage.classList.remove("hidden"); 
+successMessage.style.display = "block";
+
+if (resJson.redirect) {
+  setTimeout(() => {
     window.location.href = resJson.redirect;
-  }
-})
+  }, 2000); 
+}
+
+});
