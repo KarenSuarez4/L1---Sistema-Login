@@ -50,6 +50,11 @@ app.get("/accessDenied", (req, res) =>
 //New Route to check roles
 app.post("/api/checkRole", authorization.checkRole);
 
+app.get("/changePassword", (req, res) =>
+  res.sendFile(path.join(__dirname, "pages", "changePassword.html"))
+);
+
 app.post("/api/register", authentication.saveRegister);
 app.post("/api/login", authentication.login);
 app.post("/api/recoverPassword", emailHelper.sendEmail);
+app.post("/api/changePassword", emailHelper.changePassword); 

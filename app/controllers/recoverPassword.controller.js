@@ -5,15 +5,27 @@ import connectiondb from "../database/database.js";
 async function sendEmail(req,res) {
     const email = req.body.email;
     try {
-        const passwordUser = await getUserByEmail(email);
-        if (!passwordUser) {
-          return res.status(404).send("Error, user doesn't exist.");
+      const isExist = await getUserByEmail(email);
+      if (!isExist) {
+        return res.status(404).send("Error, user doesn't exist.");
       }
-
-      const newPassword = generateRandomPassword(10);
-      const hashedPassword = await bcryptjs.hash(newPassword, 10);
-      await updateUserPassword(email, hashedPassword);
-      let info = await sendTwoEmail(email, "Recover password APP-Login", `Hello, we are contanting the login app support team. To recover your password you have been assigned the following: ${newPassword}. You can change it in the security section of the platform.`);
+      const resetLink = "http://localhost:3000/changePassword";
+      const message = `
+      <p>Hola,</p>
+      <p>Recibimos una solicitud para restablecer tu contraseña en <strong>APP-Login</strong>.</p>
+      <p>Para continuar, haz clic en el siguiente enlace:</p><br>
+      <p style="text-align: center;">
+        <a href="${resetLink}" 
+          style="display: inline-block; padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">
+          Restablecer contraseña
+        </a><br>
+      </p>
+      <p>Si no solicitaste este cambio, ignora este mensaje.</p>
+      <br>
+      <p>Atentamente,</p>
+      <p><strong>El equipo de soporte de APP-Login</strong></p>
+    `;
+      let info = await sendTwoEmail(email, "Recover password APP-Login", message);
       res.status(200).send(`Email sent: ${info.message}`);
   } catch (error) {
       console.error(error);
@@ -21,9 +33,7 @@ async function sendEmail(req,res) {
   }
 }
 
-
-
-async function sendTwoEmail(to, subject, text) {
+async function sendTwoEmail(to, subject, htmlContent) {
     const userGmail = "kjulianapena1314@gmail.com";
     const passAppGmail = "wtgb sdzm ceum gqfz";
 
@@ -39,7 +49,7 @@ async function sendTwoEmail(to, subject, text) {
     from: userGmail,
     to: to,
     subject: subject,
-    text: text,
+    html: htmlContent,
   };
 
   try {
@@ -57,12 +67,33 @@ function getUserByEmail(email) {
     const query = "SELECT password_hash FROM users WHERE LOWER(email_user) = LOWER(?)";
     connectiondb.query(query, [email], (error, result) => {
       if (error) {
-        return reject(error);
+        return reject(false);
       }
-      resolve(result[0]);
+      resolve(true);
     });
   });
 }
+
+async function changePassword(req, res) {
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if (typeof password !== "string" || !password.trim()) {
+      return res.status(400).json({ error: "Invalid password format" });
+    }
+
+    const salt = await bcryptjs.genSalt(10); 
+    const hashedPassword = await bcryptjs.hash(password, salt);
+    await updateUserPassword(email, hashedPassword);
+    res.status(200).send("Password changed successfully");
+    console.log(password);
+
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+}
+
 
 function updateUserPassword(email, newPasswordHash) {
   return new Promise((resolve, reject) => {
@@ -74,15 +105,8 @@ function updateUserPassword(email, newPasswordHash) {
   });
 }
 
-function generateRandomPassword(length = 8) {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let password = "";
-  for (let i = 0; i < length; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return password;
-}
-
 export const emailHelper = { 
-    sendEmail 
+    sendEmail, 
+    changePassword,
 };
+
