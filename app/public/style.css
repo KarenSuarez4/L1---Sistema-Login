@@ -13,6 +13,15 @@ body {
     align-items: center;
     min-height: 100svh;
     font-size: larger;
+    padding-top: 70px; 
+    
+}
+
+.h1-centered {
+    color: #fff;
+    font-size: 4em;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .form-container {
@@ -103,15 +112,15 @@ button:hover .arrow:before {
     right: 0;
 }
 
-.logoutAdmin-button:hover{
+.logout-button:hover{
     background-color: #fff; 
     color: var(--hover-color);
 }
-.logoutAdmin-button:hover .arrow {
+.logout-button:hover .arrow {
     background: var(--hover-color); 
 }
 
-.logoutAdmin-button:hover .arrow:before {
+.logout-button:hover .arrow:before {
     border-color: var(--hover-color); 
 }
 
@@ -120,6 +129,12 @@ button:hover .arrow:before {
     justify-content: center;
 }
 
+
+.containerP {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
 
 .error {
     color: rgba(255, 0, 0, 0.762);
@@ -153,8 +168,8 @@ table {
     margin-top: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    border-radius: 10px; /* Añadido */
-    overflow: hidden; /* Añadido */
+    border-radius: 10px; 
+    overflow: hidden; 
 }
 
 th {
@@ -170,39 +185,23 @@ td {
     padding: 15px;
 }
 
-/* From Uiverse.io by zanina-yassine */ 
-/* Remove this container when use*/
-.component-title {
-    width: 100%;
-    position: absolute;
-    z-index: 999;
-    top: 30px;
-    left: 0;
-    padding: 0;
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #888;
-    text-align: center;
-  }
-  
-  .tab-container {
+
+.tab-container {
     position: relative;
-  
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-  
+    justify-content: center;
+    align-items: center;
     padding: 2px;
-  
     background-color: #dadadb;
     border-radius: 9px;
-  }
-  
-  .indicator {
+}
+
+
+.indicator {
     content: "";
-    width: 130px;
-    height: 28px;
+    width: 300px;
+    height: 56px;
     background: #ffffff;
     position: absolute;
     top: 2px;
@@ -212,183 +211,67 @@ td {
     box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
     border-radius: 7px;
     transition: all 0.2s ease-out;
-  }
-  
-  .tab {
-    width: 130px;
-    height: 28px;
+}
+
+.tab {
+    width: 300px;
+    height: 58px;
     position: absolute;
     z-index: 99;
     outline: none;
     opacity: 0;
-  }
-  
-  .tab_label {
-    width: 130px;
-    height: 28px;
-  
+}
+
+.tab_label {
+    width: 300px;
+    height: 60px;
     position: relative;
     z-index: 999;
-  
     display: flex;
     align-items: center;
     justify-content: center;
-  
     border: 0;
-  
-    font-size: 0.75rem;
+    font-size: 1.2rem; 
     opacity: 0.6;
-  
     cursor: pointer;
-  }
-  
-  .tab--1:checked ~ .indicator {
+    transition: color 0.2s ease-in-out;
+}
+
+.tab_label:hover {
+    color: #645bff;
+    font-weight: bold; 
+    background-color: #ffffff; 
+}
+
+.tab--1:checked ~ .indicator {
     left: 2px;
-  }
-  
-  .tab--2:checked ~ .indicator {
-    left: calc(130px + 2px);
-  }
-  
-  .tab--3:checked ~ .indicator {
-    left: calc(130px * 2 + 2px);
-  }
-  
-  .super-admin-title {
-    color: #fff;
-    font-size: 4em;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-
-@media screen and (max-width: 768px) {
-    .form-container {
-        width: 90%; 
-        max-width: 400px; 
-        padding: 20px;
-    }
-
-    .super-admin-title {
-        font-size: 3em;
-    }
-
-    .sr-only{
-        font-size: medium;
-    }
-
-    .account-text {
-        font-size: medium;
-    }
-
-    input {
-        padding: 12px;
-        font-size: medium;
-    }
-
-    button {
-        padding: 12px 20px;
-        font-size: medium;
-    }
-
-    .header {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-
-    th, td {
-        padding: 10px;
-        font-size: small;
-    }
 }
 
-@media screen and (max-width: 480px) {
-    .form-container {
-        width: 93%;
-        max-width: 350px;
-        padding: 15px;
-    }
-
-    .sr-only{
-        font-size: medium;
-    }
-
-    .account-text {
-        font-size: medium;
-    }
-    
-    .recover-link {
-        font-size: medium;
-    }
-
-    .super-admin-title {
-        font-size: 2em;
-        margin-left: 1em;
-    }
-
-    input {
-        padding: 10px;
-        font-size: small;
-    }
-
-    button {
-        padding: 10px 18px;
-        font-size: small;
-    }
-
-    th, td {
-        padding: 8px;
-        font-size: small;
-    }
-
-    .table-container {
-        overflow-x: auto;
-        display: block;
-        width: 100%;
-    }
+.tab--2:checked ~ .indicator {
+    left: calc(300px + 2px);
 }
 
-@media screen and (max-width: 380px) {
-    .form-container {
-        width: 100%;
-        max-width: 300px;
-        padding: 10px;
-    }
+.tab--3:checked ~ .indicator {
+    left: calc(300px * 2 + 2px);
+}
 
-    .super-admin-title {
-        font-size: 1.5em;
-        margin-left: 0.5em;
-    }
+.menu {
+    width: 80%;
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+}
 
-    .account-text {
-        font-size: small;
-    }
-    
-    .recover-link {
-        font-size: small;
-    }
-
-    .sr-only {
-        font-size: small;
-    }
-
-    input {
-        padding: 8px;
-        font-size: small;
-    }
-
-    button {
-        padding: 8px 15px;
-        font-size: smaller;
-    }
-
-    th, td {
-        padding: 6px;
-        font-size: smaller;
-    }
-
-    .table-container {
-        overflow-x: auto;
-        display: block;
-        width: 100%;
-    }
+.svg-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0; 
+    width: 100%;
+    height: 100%;
 }

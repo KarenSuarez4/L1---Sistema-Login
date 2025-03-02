@@ -58,8 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
                    
                 </td>
                 <td> <button onclick="saveRoles(${
-                  row.id_user
-                })">Guardar</button></td>
+                  row.id_userx
+                })">Guardar </button>
+                </td>
             `;
 
         tableBody.appendChild(tr);
@@ -102,7 +103,6 @@ function saveRoles(userId) {
       console.error("Error updating roles:", error);
     });
 }
-
 function saveAllRoles() {
   const rows = document.querySelectorAll("tbody tr");
   rows.forEach((row) => {
@@ -110,7 +110,6 @@ function saveAllRoles() {
     saveRoles(userId);
   });
 }
-
 function navigateToRolePage(role) {
   fetch("/api/checkRole", {
     method: "POST",

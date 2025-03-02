@@ -4,17 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Access Denied</title>
+        <script src="superAdmin.js" defer></script>
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <main>
-      <h1 style="color: #fff; font-size: 4em; text-align: center;">
+      <div class="containerP">
+        <button type="submit" class="logout-button">
+          Log Out
+          <div class="arrow-wrapper">
+            <div class="arrow"></div>
+          </div>
+        </button>
+      </div>
+      <h1 style="color: #fff; font-size: 4em; text-align: center">
         Access Denied
       </h1>
-      <p style="color: #fff; font-size: 2em; text-align: center;">
+      <p style="color: #fff; font-size: 2em; text-align: center">
         You do not have permission to access this page.
       </p>
-      <div style="text-align: center;">
+      <div style="text-align: center">
         <button class="button" onclick="goBack()">
           <span>Go Back</span>
           <span>

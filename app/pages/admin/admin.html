@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/style.css" />
     <script src="/admin.js" defer></script>
   </head>
@@ -14,7 +20,7 @@
           <input type="radio" name="tab" id="tab1" class="tab tab--1" />
           <label
             class="tab_label"
-            for="tab2"
+            for="tab1"
             onclick="navigateToRolePage('Admin')"
             >Admin</label
           >
@@ -34,11 +40,10 @@
             onclick="navigateToRolePage('SuperAdmin')"
             >SuperAdmin</label
           >
-
           <div class="indicator"></div>
         </div>
       </div>
-      <h1 class="super-admin-title">¡Hello Admin!</h1>
+      <h1 style="color: #fff; font-size: 4em">¡Hello Admin!</h1>
       <div class="container-button">
         <button type="submit" id="logout-button">
           Log Out
