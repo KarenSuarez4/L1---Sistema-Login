@@ -110,15 +110,11 @@ function setTokenCookie(res, token) {
 }
 
 async function saveRegister(req, res) {
-  const first_name_person = req.body.first_name_person;
-  const last_name_person = req.body.last_name_person;
-  const document_number_person = req.body.document_number_person;
-  const user_name = req.body.user_name;
-  const email_user = req.body.email_user;
-  const password = req.body.password;
-  let passwordhash = await bcryptjs.hash(password, 8);
-  const query = "INSERT INTO users SET ?";
-  const values = {
+  const { first_name_person, last_name_person, document_number_person, user_name, email_user, password } = req.body;
+  const passwordhash = await bcryptjs.hash(password, 8);
+
+  const queryUser = "INSERT INTO users SET ?";
+  const valuesUser = {
     first_name_person,
     last_name_person,
     document_number_person,
@@ -126,20 +122,47 @@ async function saveRegister(req, res) {
     email_user,
     password_hash: passwordhash,
   };
-  connectiondb.query(query, values, (error, result) => {
+
+  connectiondb.query(queryUser, valuesUser, (error, result) => {
     if (error) {
-      console.error("Error in query sql: ", error);
-      return res
-        .status(400)
-        .json({ status: "Error", message: "Error during registration" });
+      console.error("Error in user registration:", error);
+      return res.status(400).json({ status: "Error", message: "Error during registration" });
     }
-    return res.status(201).json({
-      status: "ok",
-      message: "User registered successfully",
-      redirect: "/",
+
+    if (!result || !result.insertId) {
+      console.error("User insertion failed, no insertId returned");
+      return res.status(400).json({ status: "Error", message: "User could not be registered" });
+    }
+
+    const userId = result.insertId;
+
+    const queryRole = "SELECT id_role FROM role WHERE name_role_user = 'Employee'";
+    connectiondb.query(queryRole, (error, roleResult) => {
+      if (error || roleResult.length === 0) {
+        console.error("Error fetching role:", error);
+        return res.status(400).json({ status: "Error", message: "Error assigning role" });
+      }
+
+      const roleId = roleResult[0].id_role; 
+
+      const queryUserRole = "INSERT INTO user_role (id_role, id_user) VALUES (?, ?)";
+      connectiondb.query(queryUserRole, [roleId, userId], (error) => {
+        if (error) {
+          console.error("Error assigning role:", error);
+          return res.status(400).json({ status: "Error", message: "Error assigning role" });
+        }
+
+        return res.status(201).json({
+          status: "ok",
+          message: "User registered successfully with role 'empleado'",
+          redirect: "/",
+        });
+      });
     });
   });
 }
+
+
 
 export const methods = {
   login,
